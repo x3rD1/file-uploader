@@ -4,6 +4,8 @@ const indexRouter = Router();
 const indexController = require("../controllers/indexControllers");
 
 indexRouter.get("/", indexController.getIndexPage);
+indexRouter.get("/signup", indexController.getSignupPage);
+indexRouter.post("/signup", indexController.createAccount);
 indexRouter.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) return next(err);
