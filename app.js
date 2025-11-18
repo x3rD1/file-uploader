@@ -45,7 +45,7 @@ const signupRouter = require("./routes/signupRouter");
 
 app.use("/", indexRouter);
 app.use("/login", loginRouter);
-app.use("/signup", loginRouter);
+app.use("/signup", signupRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, (error) => {
