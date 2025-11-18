@@ -42,10 +42,12 @@ app.use((req, res, next) => {
 const indexRouter = require("./routes/indexRouter");
 const loginRouter = require("./routes/loginRouter");
 const signupRouter = require("./routes/signupRouter");
+const uploadRouter = require("./routes/uploadRouter");
 
 app.use("/", indexRouter);
 app.use("/login", loginRouter);
 app.use("/signup", signupRouter);
+app.use("/upload", uploadRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, (error) => {
