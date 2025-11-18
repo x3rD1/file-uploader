@@ -34,7 +34,10 @@ require("./config/passport");
 
 app.use(passport.session());
 // add custom middleware for locals
-
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  next();
+});
 // Routes
 const indexRouter = require("./routes/indexRouter");
 
