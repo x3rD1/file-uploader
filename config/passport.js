@@ -8,8 +8,7 @@ const prisma = new PrismaClient();
 passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
-      const { rows } = await prisma.user.findUnique({ where: { username } });
-      const user = rows[0];
+      const user = await prisma.user.findUnique({ where: { username } });
 
       // Check if user does not exist
       if (!user) {
@@ -35,8 +34,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const { rows } = await prisma.user.findUnique({ where: { id } });
-    const user = rows[0];
+    const user = await prisma.user.findUnique({ where: { id } });
 
     done(null, user);
   } catch (err) {
