@@ -1,3 +1,8 @@
+const prisma = require("../db/prisma");
+const bcrypt = require("bcryptjs");
+
+const { validationResult } = require("express-validator");
+
 exports.getSignupPage = (req, res) => {
   res.locals.errors = [];
   res.locals.oldInput = {};
