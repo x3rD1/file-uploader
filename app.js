@@ -40,8 +40,12 @@ app.use((req, res, next) => {
 });
 // Routes
 const indexRouter = require("./routes/indexRouter");
+const loginRouter = require("./routes/loginRouter");
+const signupRouter = require("./routes/signupRouter");
 
 app.use("/", indexRouter);
+app.use("/login", loginRouter);
+app.use("/signup", loginRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, (error) => {
