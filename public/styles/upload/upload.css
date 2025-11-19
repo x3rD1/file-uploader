@@ -1,0 +1,441 @@
+/* ===== GLOBAL ===== */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #f0f2f5;
+  margin: 0;
+  color: #333;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.8em;
+}
+p {
+  margin: 0;
+}
+
+/* ===== HEADER ===== */
+.header {
+  background: white;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logout-btn {
+  color: #f44336;
+  text-decoration: none;
+  font-weight: 600;
+}
+.logout-btn:hover {
+  text-decoration: underline;
+}
+
+/* ===== MAIN ===== */
+.main-content {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ===== NEW PANEL ===== */
+.new-container {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 24px;
+}
+
+.new-btn {
+  background: #4caf50;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+  z-index: 1; /* behind panel when active */
+}
+.new-btn:hover {
+  background: #45a049;
+}
+
+.new-container {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 24px;
+}
+
+.new-btn {
+  background: #4caf50;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+  z-index: 1; /* behind panel when active */
+}
+.new-btn:hover {
+  background: #45a049;
+}
+
+/* PANEL AS DROPDOWN ABOVE BUTTON */
+.new-container {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 24px;
+}
+
+.new-btn {
+  background: #4caf50;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+  z-index: 1; /* behind panel when active */
+}
+.new-btn:hover {
+  background: #45a049;
+}
+
+/* PANEL OVER BUTTON */
+.new-panel {
+  position: absolute;
+  top: 0; /* align top of panel with top of button */
+  left: 0;
+  transform: translateY(0) scale(0.95);
+  width: 260px;
+  height: 100px; /* fixed height for panel */
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none; /* disable clicks when hidden */
+  overflow: hidden; /* remove extra spaces */
+}
+
+.new-panel.active {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.new-folder-btn {
+  font-size: 1rem;
+}
+/* Make each panel item take equal space */
+.panel-item {
+  flex: 1; /* take equal space */
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding-left: 1rem;
+  gap: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+  border: none; /* remove default button border */
+  background: none; /* remove button background for "New Folder" */
+  width: 100%;
+}
+
+.panel-item:hover {
+  background: #f0f0f0;
+}
+
+/* ===== FOLDER GRID ===== */
+.folder-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 20px;
+}
+
+.folder-card {
+  position: relative;
+  background: white;
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Folder icon */
+.folder-icon {
+  font-size: 2.5em;
+}
+
+/* Folder name */
+.folder-name {
+  font-weight: 600;
+  text-align: center;
+  word-break: break-word;
+}
+
+/* More button (absolute) */
+.more-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: none;
+  font-size: 1.2em;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 10;
+}
+
+/* Folder actions panel */
+.folder-actions-panel {
+  position: absolute;
+  top: 32px;
+  left: 120px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  display: none;
+  flex-direction: column;
+  min-width: 140px;
+  overflow: hidden;
+  z-index: 20;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  transform-origin: top left;
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.folder-actions-panel.active {
+  display: flex;
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Action buttons inside panel */
+.folder-actions-panel .action-btn {
+  padding: 10px 12px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.2s;
+}
+
+.folder-actions-panel .action-btn:hover {
+  background: #f0f0f0;
+}
+
+.folder-actions-panel .delete:hover {
+  background: #f44336;
+  color: white;
+}
+
+.folder-actions-panel .rename:hover {
+  background: #4caf50;
+  color: white;
+}
+
+/* EMPTY MESSAGE */
+.empty-msg {
+  color: #777;
+  text-align: center;
+  margin-top: 40px;
+  font-size: 1.1em;
+}
+
+/* Files*/
+.file-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 16px;
+  padding: 16px 0;
+}
+
+.file-card {
+  background: white;
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.file-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.file-icon {
+  font-size: 2em;
+}
+
+.file-name {
+  font-weight: 600;
+  text-align: center;
+  word-break: break-word;
+}
+
+/* File actions buttons */
+.file-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.file-actions .action-btn {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85em;
+  background: #eee;
+  transition: background 0.2s;
+}
+
+.file-actions .action-btn:hover {
+  background: #ddd;
+}
+
+.file-actions .delete:hover {
+  background: #f44336;
+  color: white;
+}
+
+.file-actions .download:hover {
+  background: #4caf50;
+  color: white;
+}
+
+/* ===== MODAL ===== */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  transition: opacity 0.25s ease;
+}
+
+.modal.active {
+  display: flex;
+}
+
+/* MODAL CONTENT */
+.modal-content {
+  background: #ffffff;
+  padding: 36px 32px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* increased gap */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+  animation: scaleIn 0.25s ease forwards;
+  box-sizing: border-box;
+}
+
+/* Modal title */
+.modal-content h2 {
+  margin: 0;
+  font-size: 1.6em;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Input */
+.input {
+  padding: 14px 16px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1em;
+  transition: border 0.2s, box-shadow 0.2s;
+  background: #f9f9f9; /* subtle background */
+  box-sizing: border-box;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #4caf50;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.15);
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  gap: 16px;
+}
+
+/* Buttons */
+.btn {
+  padding: 12px 22px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.cancel {
+  background: #eee;
+  color: #333;
+}
+
+.cancel:hover {
+  background: #ddd;
+}
+
+.create {
+  background: #4caf50;
+  color: white;
+}
+
+.create:hover {
+  background: #45a049;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+/* Modal animation */
+@keyframes scaleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
