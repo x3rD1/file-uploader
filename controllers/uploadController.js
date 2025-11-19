@@ -1,7 +1,15 @@
-exports.getUploadPage = (req, res) => {
-  res.render("upload");
-};
+const prisma = require("../db/prisma");
 
-exports.uploadFile = async (req, res) => {
-  res.send("Upload Successfully");
+exports.getUploadPage = async (req, res) => {
+  const folders = await prisma.folder.findMany({
+    where: { userId: req.user.id },
+  });
+
+  const files = await prisma.file.findMany({
+    where: { folder: { userId: req.user.id } },
+  });
+
+  res.locals.folders = folders;
+  res.locals.files = files;
+  res.render("upload");
 };
