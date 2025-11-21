@@ -42,14 +42,14 @@ app.use((req, res, next) => {
 const indexRouter = require("./routes/indexRouter");
 const loginRouter = require("./routes/loginRouter");
 const signupRouter = require("./routes/signupRouter");
-const uploadRouter = require("./routes/uploadRouter");
+const homeRouter = require("./routes/homeRouter");
 const folderRouter = require("./routes/folderRouter");
 const fileRouter = require("./routes/fileRouter");
 
 app.use("/", indexRouter);
 app.use("/login", loginRouter);
 app.use("/signup", signupRouter);
-app.use("/upload", uploadRouter);
+app.use("/home", homeRouter);
 app.use("/folders", folderRouter);
 app.use("/files", fileRouter);
 
