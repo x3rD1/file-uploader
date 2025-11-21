@@ -43,11 +43,15 @@ const indexRouter = require("./routes/indexRouter");
 const loginRouter = require("./routes/loginRouter");
 const signupRouter = require("./routes/signupRouter");
 const uploadRouter = require("./routes/uploadRouter");
+const folderRouter = require("./routes/folderRouter");
+const fileRouter = require("./routes/fileRouter");
 
 app.use("/", indexRouter);
 app.use("/login", loginRouter);
 app.use("/signup", signupRouter);
 app.use("/upload", uploadRouter);
+app.use("/folders", folderRouter);
+app.use("/files", fileRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, (error) => {
