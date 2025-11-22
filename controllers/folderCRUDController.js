@@ -1,5 +1,6 @@
 const prisma = require("../db/prisma");
 const supabase = require("../config/supabase");
+const { nanoid } = require("nanoid");
 
 exports.getFolderPage = async (req, res) => {
   const folderId = parseInt(req.params.id, 10);
@@ -81,4 +82,24 @@ exports.deleteFolder = async (req, res) => {
   const folderId = parseInt(req.params.id, 10);
   await prisma.folder.delete({ where: { id: folderId } });
   res.redirect("/home");
+};
+
+exports.shareFolder = async (req, res) => {
+  const folderId = parseInt(req.params.id, 10);
+  const { duration } = req.body; // duration in days
+
+  const { nanoid } = require("nanoid");
+  const shareId = nanoid();
+
+  // Save share info to DB
+  await prisma.folderShare.create({
+    data: {
+      folderId,
+      shareId,
+      expiresAt: new Date(Date.now() + duration * 24 * 60 * 60 * 1000), // days to ms
+    },
+  });
+
+  // Return JSON with shareable link
+  res.json({ link: `https://yourapp.com/share/${shareId}` });
 };
