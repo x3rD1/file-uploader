@@ -39,6 +39,5 @@ exports.getHomePage = async (req, res) => {
   res.locals.folders = folders;
   res.locals.root = root;
   res.locals.folderId = "";
-  console.log(root);
   res.render("home");
 };
