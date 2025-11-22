@@ -15,14 +15,17 @@ app.use(express.static(assetsPath));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.set("trust proxy", 1);
 app.use(
   session({
     cookie: {
       maxAge: 7 * 24 * 60 * 60 * 1000,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     },
     secret: process.env.SESSION_SECRET || "cats",
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
     store: new PrismaSessionStore(prisma, {
       checkPeriod: 2 * 60 * 1000,
       dbRecordIdIsSessionId: true,
