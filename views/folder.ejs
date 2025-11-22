@@ -36,10 +36,10 @@
             >
               Rename
             </button>
-            <form action="/folders/delete/<%= folder.id %>" method="POST">
+            <form action="/folders/<%= folder.id %>/delete" method="POST">
               <button type="submit" class="action-btn delete">Delete</button>
             </form>
-            <button class="action-btn download">Download</button>
+            <button class="action-btn share">Share</button>
           </div>
         </div>
         <% } %> <% }) %> <% } else { %>
@@ -97,6 +97,36 @@
             <button type="submit" class="btn create">Rename</button>
           </div>
         </form>
+      </div>
+    </div>
+
+    <div id="shareFolderModal" class="modal">
+      <div class="modal-content">
+        <h2>Share Folder</h2>
+        <form id="shareFolderForm" method="POST">
+          <label for="duration">Link Duration (days)</label>
+          <input
+            type="number"
+            name="duration"
+            id="duration"
+            min="1"
+            value="1"
+            required
+            class="input"
+          />
+
+          <div class="actions">
+            <button type="button" id="cancelShareFolder" class="btn cancel">
+              Cancel
+            </button>
+            <button type="submit" class="btn create">Generate Link</button>
+          </div>
+        </form>
+        <div id="shareLinkContainer" style="margin-top: 1rem; display: none">
+          <p>Shareable Link:</p>
+          <input type="text" id="shareLink" readonly class="input" />
+          <button class="btn" id="copyLink">Copy</button>
+        </div>
       </div>
     </div>
   </body>
