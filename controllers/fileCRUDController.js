@@ -32,12 +32,14 @@ exports.uploadFile = async (req, res) => {
     if (error) throw error;
 
     let folderId = parseInt(req.body.folderId, 10);
+    let path = `/folders/${folderId}`;
     // Get root folder id
     if (!folderId) {
       const root = await prisma.folder.findFirst({
         where: { userId: req.user.id, parentId: null, visible: false },
       });
       folderId = root.id;
+      path = "/home";
     }
 
     // Store file metadata in Postgresql
@@ -50,7 +52,7 @@ exports.uploadFile = async (req, res) => {
         folderId,
       },
     });
-    res.redirect(`/folders/${folderId}`);
+    res.redirect(path);
   } catch (err) {
     console.error(err);
     res.status(500).send({ error: "Upload failed" });
