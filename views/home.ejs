@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/upload.css" />
+    <script src="/js/newButton.js" defer></script>
+    <script src="/js/modal.js" defer></script>
+    <script src="/js/moreAction.js" defer></script>
+    <script src="/js/folder.js" defer></script>
+    <script src="/js/file.js" defer></script>
+    <title>Upload Files • Storewage</title>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <%- include('partials/header') %>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+      <!-- NEW BUTTON -->
+      <%- include('partials/newContainer') %>
+
+      <h2>Folders</h2>
+      <!-- FOLDER GRID -->
+      <section class="folder-grid">
+        <% if (folders && folders.length) { %> <% folders.forEach(folder => { %>
+        <% if (folder.visible) { %>
+        <div class="folder-card" data-folder-id="<%= folder.id %>">
+          <div class="folder-icon">📁</div>
+          <div class="folder-name"><%= folder.name %></div>
+
+          <!-- 3-dot button -->
+          <button class="more-btn">⋮</button>
+
+          <!-- Actions panel -->
+          <div class="folder-actions-panel">
+            <button
+              class="action-btn rename"
+              data-folder-id="<%= folder.id %>"
+              data-folder-name="<%= folder.name %>"
+            >
+              Rename
+            </button>
+            <form action="/folders/delete/<%= folder.id %>" method="POST">
+              <button type="submit" class="action-btn delete">Delete</button>
+            </form>
+            <button class="action-btn download">Download</button>
+          </div>
+        </div>
+        <% } %> <% }) %> <% } else { %>
+        <p class="empty-msg">
+          No folders yet. Create one using the “New” button!
+        </p>
+        <% } %>
+      </section>
+
+      <%- include('partials/files') %>
+    </main>
+
+    <!-- MODAL -->
+    <div
+      id="folderModal"
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalTitle"
+    >
+      <div class="modal-content">
+        <h2 id="modalTitle">New Folder</h2>
+        <form action="/folders/create" method="POST">
+          <input
+            type="text"
+            name="name"
+            placeholder="Folder name..."
+            required
+            class="input"
+          />
+          <div class="actions">
+            <button type="button" id="cancelModal" class="btn cancel">
+              Cancel
+            </button>
+            <button type="submit" class="btn create">Create</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal update -->
+    <div id="renameFolderModal" class="modal">
+      <div class="modal-content">
+        <h2>Rename Folder</h2>
+
+        <form id="renameFolderForm" method="POST">
+          <input
+            type="text"
+            name="newName"
+            placeholder="New folder name..."
+            required
+            class="input"
+          />
+
+          <div class="actions">
+            <button type="button" id="cancelRenameFolder" class="btn cancel">
+              Cancel
+            </button>
+            <button type="submit" class="btn create">Rename</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

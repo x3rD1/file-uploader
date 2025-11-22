@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="/js/file.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>Files</h2>
+
+    <section class="file-grid">
+      <% if (files && files.length) { %> <% files.forEach(file => { %>
+      <div class="file-card" data-file-id="<%= file.id %>">
+        <% if (file.signedUrl && file.mimeType.startsWith('image/')) { %>
+        <img src="<%= file.signedUrl %>" alt="<%= file.originalName %>" />
+        <% } else { %>
+        <div class="file-icon">📄</div>
+        <% } %>
+
+        <div class="file-name"><%= file.originalName %></div>
+        <div class="file-actions">
+          <!-- <button class="action-btn download">Download</button>
+          <button class="action-btn delete">Delete</button> -->
+        </div>
+      </div>
+      <% }) %> <% } else { %>
+      <p class="empty-msg">No files uploaded yet.</p>
+      <% } %>
+    </section>
+  </body>
+</html>

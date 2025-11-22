@@ -1,0 +1,24 @@
+<div class="new-container">
+  <button class="new-btn">＋ New</button>
+  <div class="new-panel">
+    <button class="panel-item new-folder-btn">📁 New Folder</button>
+    <form
+      action="/files/upload"
+      method="POST"
+      enctype="multipart/form-data"
+      class="panel-item file-upload"
+    >
+      📤 Upload File
+
+      <input type="hidden" name="folderId" />
+
+      <input
+        type="file"
+        name="file"
+        required
+        onchange="this.form.submit()"
+        hidden
+      />
+    </form>
+  </div>
+</div>

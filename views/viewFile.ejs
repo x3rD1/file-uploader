@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/view.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="file-detail-container">
+      <div class="file-preview">
+        <% if (file.mimeType.startsWith('image/')) { %>
+        <img src="<%= signedUrl %>" alt="<%= file.storedName %>" />
+        <% } else { %>
+        <div class="file-icon">📄</div>
+        <% } %>
+      </div>
+
+      <div class="file-info">
+        <h2 class="file-name"><%= file.storedName %></h2>
+        <p class="file-meta">
+          <span class="file-size"><%= (file.size / 1024).toFixed(2) %> KB</span>
+          •
+          <span class="file-date"
+            ><%= new Date(file.createdAt).toLocaleString() %></span
+          >
+        </p>
+
+        <!-- Optional actions -->
+        <div class="file-actions">
+          <a href="/files/<%= file.id %>/download" class="btn">Download</a>
+          <form
+            action="/files/<%= file.id %>/delete"
+            method="POST"
+            style="display: inline"
+          >
+            <button type="submit" class="btn delete">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

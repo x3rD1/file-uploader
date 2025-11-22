@@ -180,6 +180,7 @@ p {
   align-items: center;
   gap: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 /* Folder icon */
@@ -284,6 +285,7 @@ p {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   position: relative;
   transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
 }
 
 .file-card:hover {
@@ -291,14 +293,25 @@ p {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
+.file-card img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
 .file-icon {
-  font-size: 2em;
+  font-size: 90px;
 }
 
 .file-name {
+  font-size: 20px;
   font-weight: 600;
-  text-align: center;
-  word-break: break-word;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  display: block;
 }
 
 /* File actions buttons */

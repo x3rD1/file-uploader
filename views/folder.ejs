@@ -3,50 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles/upload/upload.css" />
-    <script src="/js/newButton.js" defer></script>
+    <link rel="stylesheet" href="/styles/upload.css" />
     <script src="/js/modal.js" defer></script>
+    <script src="/js/newButton.js" defer></script>
+    <script src="/js/upload.js" defer></script>
     <script src="/js/moreAction.js" defer></script>
-    <title>Upload Files • Storewage</title>
+    <script src="/js/folder.js" defer></script>
+    <script src="/js/file.js" defer></script>
+    <title>Document</title>
   </head>
   <body>
-    <!-- HEADER -->
-    <header class="header">
-      <h1>Storewage</h1>
-      <div class="user-info">
-        <a href="/login/logout" class="logout-btn">Log out</a>
-      </div>
-    </header>
-
-    <!-- MAIN CONTENT -->
+    <%- include('partials/header') %>
     <main class="main-content">
-      <!-- NEW BUTTON -->
-      <div class="new-container">
-        <button class="new-btn">＋ New</button>
-        <div class="new-panel">
-          <button class="panel-item new-folder-btn">📁 New Folder</button>
-          <form
-            action="/upload/files/upload"
-            method="POST"
-            enctype="multipart/form-data"
-            class="panel-item file-upload"
-          >
-            📤 Upload File
-            <input
-              type="file"
-              name="file"
-              required
-              onchange="this.form.submit()"
-              hidden
-            />
-          </form>
-        </div>
-      </div>
-
+      <%- include('partials/newContainer') %>
       <h2>Folders</h2>
-      <!-- FOLDER GRID -->
       <section class="folder-grid">
-        <% if (folders && folders.length) { %> <% folders.forEach(folder => { %>
+        <% if (subfolders && subfolders.length) { %> <%
+        subfolders.forEach(folder => { %> <% if (folder.visible) { %>
         <div class="folder-card" data-folder-id="<%= folder.id %>">
           <div class="folder-icon">📁</div>
           <div class="folder-name"><%= folder.name %></div>
@@ -63,42 +36,20 @@
             >
               Rename
             </button>
-            <form
-              action="/upload/folders/delete/<%= folder.id %>"
-              method="POST"
-            >
+            <form action="/folders/delete/<%= folder.id %>" method="POST">
               <button type="submit" class="action-btn delete">Delete</button>
             </form>
             <button class="action-btn download">Download</button>
           </div>
         </div>
-
-        <% }) %> <% } else { %>
+        <% } %> <% }) %> <% } else { %>
         <p class="empty-msg">
           No folders yet. Create one using the “New” button!
         </p>
         <% } %>
       </section>
-
-      <h2>Files</h2>
-
-      <section class="file-grid">
-        <% if (files && files.length) { %> <% files.forEach(file => { %>
-        <div class="file-card" data-file-id="<%= file.id %>">
-          <div class="file-icon">📄</div>
-          <div class="file-name"><%= file.name %></div>
-          <div class="file-actions">
-            <button class="action-btn download">Download</button>
-            <button class="action-btn delete">Delete</button>
-          </div>
-        </div>
-        <% }) %> <% } else { %>
-        <p class="empty-msg">No files uploaded yet.</p>
-        <% } %>
-      </section>
+      <%- include('partials/files') %>
     </main>
-
-    <!-- MODAL -->
     <div
       id="folderModal"
       class="modal"
@@ -108,7 +59,7 @@
     >
       <div class="modal-content">
         <h2 id="modalTitle">New Folder</h2>
-        <form action="/upload/folders/create" method="POST">
+        <form action="/folders/<%= folderId %>/createSub" method="POST">
           <input
             type="text"
             name="name"
@@ -126,7 +77,6 @@
       </div>
     </div>
 
-    <!-- Modal update -->
     <div id="renameFolderModal" class="modal">
       <div class="modal-content">
         <h2>Rename Folder</h2>
