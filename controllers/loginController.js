@@ -19,7 +19,7 @@ exports.postLogin = (req, res, next) => {
     // Logs user in and sets up the session
     req.logIn(user, (err) => {
       if (err) return next(err);
-      return res.redirect("/upload");
+      return res.redirect("/home");
     });
   })(req, res, next);
 };

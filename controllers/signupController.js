@@ -28,12 +28,20 @@ exports.createAccount = async (req, res) => {
 
   // Create user
   const { username, password } = req.body;
-  await prisma.user.create({
+  const user = await prisma.user.create({
     data: {
       username,
       password: await bcrypt.hash(password, 10),
     },
   });
 
+  // Create hidden root folder
+  await prisma.folder.create({
+    data: {
+      name: "root",
+      visible: false,
+      userId: user.id,
+    },
+  });
   res.redirect("/login");
 };
