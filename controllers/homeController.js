@@ -16,7 +16,7 @@ exports.getHomePage = async (req, res) => {
   });
 
   const files = await prisma.file.findMany({
-    where: { folderId: root.id },
+    where: { folder: { userId: req.user.id } },
     orderBy: { createdAt: "desc" },
   });
 
@@ -38,6 +38,7 @@ exports.getHomePage = async (req, res) => {
   res.locals.files = filesWithUrls;
   res.locals.folders = folders;
   res.locals.root = root;
+  res.locals.folderId = "";
   console.log(root);
   res.render("home");
 };
