@@ -24,18 +24,30 @@ model User {
 }
 
 model Folder {
-  id         Int      @id @default(autoincrement())
+  id         Int           @id @default(autoincrement())
   name       String
-  visible    Boolean  @default(true)
-  user       User     @relation(fields: [userId], references: [id])
+  visible    Boolean       @default(true)
+  user       User          @relation(fields: [userId], references: [id])
   userId     Int
   files      File[]
-  parent     Folder?  @relation("Subfolders", fields: [parentId], references: [id])
+  parent     Folder?       @relation("Subfolders", fields: [parentId], references: [id])
   parentId   Int?
-  subfolders Folder[] @relation("Subfolders")
-  createdAt  DateTime @default(now())
+  subfolders Folder[]      @relation("Subfolders")
+  shares     FolderShare[]
+  createdAt  DateTime      @default(now())
 
   @@map("folders")
+}
+
+model FolderShare {
+  id        Int      @id @default(autoincrement())
+  folder    Folder   @relation(fields: [folderId], references: [id])
+  folderId  Int
+  shareId   String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@map("folder_shares")
 }
 
 model File {
