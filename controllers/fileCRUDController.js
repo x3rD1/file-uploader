@@ -31,7 +31,14 @@ exports.uploadFile = async (req, res) => {
 
     if (error) throw error;
 
-    const folderId = parseInt(req.body.folderId, 10);
+    let folderId = parseInt(req.body.folderId, 10);
+    // Get root folder id
+    if (!folderId) {
+      const root = await prisma.folder.findFirst({
+        where: { userId: req.user.id, parentId: null, visible: false },
+      });
+      folderId = root.id;
+    }
 
     // Store file metadata in Postgresql
     await prisma.file.create({
