@@ -79,15 +79,42 @@ exports.renameFolder = async (req, res) => {
 };
 
 exports.deleteFolder = async (req, res) => {
-  const folderId = parseInt(req.params.id, 10);
-  const folder = await prisma.folder.findUnique({ where: { id: folderId } });
-  await prisma.folder.delete({ where: { id: folderId } });
+  try {
+    const folderId = parseInt(req.params.id, 10);
 
-  const referer = req.headers.referer || "";
-  if (folder.parentId && referer.includes(`/folders/${folder.parentId}`)) {
-    return res.redirect(`/folders/${folder.parentId}`);
+    const folder = await prisma.folder.findUnique({
+      where: { id: folderId },
+      include: { files: true },
+    });
+
+    if (!folder) return res.status(404).send("Folder not found");
+
+    const bucket = "Uploads";
+
+    if (folder.files.length > 0) {
+      const filePaths = folder.files.map((f) => f.storedName);
+
+      const { error: storageError } = await supabase.storage
+        .from(bucket)
+        .remove(filePaths);
+
+      if (storageError) throw storageError;
+    }
+
+    await prisma.folder.delete({
+      where: { id: folderId },
+    });
+
+    const referer = req.headers.referer || "";
+    if (folder.parentId && referer.includes(`/folders/${folder.parentId}`)) {
+      return res.redirect(`/folders/${folder.parentId}`);
+    }
+
+    res.redirect("/home");
+  } catch (err) {
+    console.error("Folder delete error:", err);
+    res.status(500).send("Failed to delete folder");
   }
-  res.redirect("/home");
 };
 
 exports.shareFolder = async (req, res) => {
