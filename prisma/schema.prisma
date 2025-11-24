@@ -41,7 +41,7 @@ model Folder {
 
 model FolderShare {
   id        Int      @id @default(autoincrement())
-  folder    Folder   @relation(fields: [folderId], references: [id])
+  folder    Folder   @relation(fields: [folderId], references: [id], onDelete: Cascade)
   folderId  Int
   shareId   String   @unique
   expiresAt DateTime
