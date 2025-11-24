@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= folder.name %> - Shared</title>
+    <link rel="stylesheet" href="/css/sharedFolder.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="folder-title"><%= folder.name %></h1>
+
+      <!-- Folders Section -->
+      <h2>Folders</h2>
+      <div class="folder-grid">
+        <% if (folders.length > 0) { %> <% folders.forEach(f => { %>
+        <div class="folder-card">
+          <a href="/folders/share/<%= shareId %>/folder/<%= f.id %>">
+            <div class="folder-icon">📁</div>
+          </a>
+          <div class="folder-name"><%= f.name %></div>
+        </div>
+        <% }) %> <% } else { %>
+        <!-- Placeholder to keep spacing -->
+        <div class="folder-card empty"></div>
+        <% } %>
+      </div>
+
+      <!-- Files Section -->
+      <h2>Files</h2>
+      <div class="file-grid">
+        <% if (files.length > 0) { %> <% files.forEach(file => { %>
+        <div class="file-card">
+          <a href="<%= file.signedUrl %>" target="_blank" class="file-link">
+            <% if (file.mimeType.startsWith('image/')) { %>
+            <img
+              src="<%= file.signedUrl %>"
+              alt="<%= file.originalName %>"
+              class="file-preview"
+            />
+            <% } else if (file.mimeType === 'application/pdf') { %>
+            <div class="file-preview pdf-preview">
+              <p>📄 PDF</p>
+            </div>
+            <% } else { %>
+            <div class="file-preview other-preview">
+              <p>📄 <%= file.originalName %></p>
+            </div>
+            <% } %>
+          </a>
+          <div class="file-info">
+            <p class="file-name"><%= file.originalName %></p>
+            <a href="<%= file.signedUrl %>" download class="btn download-btn">
+              Download
+            </a>
+          </div>
+        </div>
+        <% }) %> <% } else { %>
+        <p class="empty-msg">No files in this folder.</p>
+        <% } %>
+      </div>
+    </div>
+  </body>
+</html>
