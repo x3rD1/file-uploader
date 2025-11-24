@@ -4,45 +4,65 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign up • Storewage</title>
+    <link rel="stylesheet" href="/styles/signup.css" />
   </head>
   <body>
-    <h1>Sign up for Storewage</h1>
-    <form action="/signup" method="POST">
-      <label for="username">Username</label>
-      <input
-        type="text"
-        name="username"
-        id="username"
-        value="<%= oldInput ? oldInput.username : '' %>"
-        placeholder="Choose a username"
-        required
-      />
-      <% if (errors.username) { %>
-      <p class="error"><%= errors.username %></p>
-      <% } %>
-      <label for="password">Password</label>
-      <input
-        type="password"
-        name="password"
-        id="password"
-        placeholder="Enter your password"
-        required
-      />
-      <% if (errors.password) { %>
-      <p class="error"><%= errors.password %></p>
-      <% } %>
-      <label for="confirmPassword">Confirm password</label>
-      <input
-        type="password"
-        name="confirmPassword"
-        id="confirmPassword"
-        placeholder="Confirm password"
-        required
-      />
-      <% if (errors.confirmPassword) { %>
-      <p class="error"><%= errors.confirmPassword %></p>
-      <% } %>
-      <button type="submit">Create account</button>
-    </form>
+    <main class="hero">
+      <div class="container">
+        <h1 class="main-title">Sign up</h1>
+
+        <form action="/signup" method="POST" class="signup-form">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              value="<%= oldInput ? oldInput.username : '' %>"
+              placeholder="Choose a username"
+              required
+            />
+            <% if (errors.username) { %>
+            <p class="error-text"><%= errors.username %></p>
+            <% } %>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Enter your password"
+              required
+            />
+            <% if (errors.password) { %>
+            <p class="error-text"><%= errors.password %></p>
+            <% } %>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">Confirm password</label>
+            <input
+              type="password"
+              name="confirmPassword"
+              id="confirmPassword"
+              placeholder="Confirm password"
+              required
+            />
+            <% if (errors.confirmPassword) { %>
+            <p class="error-text"><%= errors.confirmPassword %></p>
+            <% } %>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Create account</button>
+        </form>
+
+        <p class="login-link">
+          Already have an account?
+          <a href="/login" class="btn btn-secondary">Login</a>
+        </p>
+      </div>
+    </main>
   </body>
 </html>
