@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= folder.name %> - Shared</title>
-    <link rel="stylesheet" href="/css/sharedFolder.css" />
+    <link rel="stylesheet" href="/styles/sharedFolder.css" />
   </head>
   <body>
     <div class="container">
@@ -50,7 +50,11 @@
           </a>
           <div class="file-info">
             <p class="file-name"><%= file.originalName %></p>
-            <a href="<%= file.signedUrl %>" download class="btn download-btn">
+            <a
+              href="/folders/share/download/<%= file.id%>"
+              download
+              class="btn download-btn"
+            >
               Download
             </a>
           </div>
