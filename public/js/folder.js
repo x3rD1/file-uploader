@@ -120,3 +120,13 @@ copyLinkBtn.addEventListener("click", () => {
   shareLinkInput.select();
   document.execCommand("copy");
 });
+
+document
+  .querySelectorAll('form[action*="/folders/"][action*="/delete"]')
+  .forEach((form) => {
+    form.addEventListener("submit", function (e) {
+      if (!confirm("Delete this folder? This cannot be undone.")) {
+        e.preventDefault();
+      }
+    });
+  });
