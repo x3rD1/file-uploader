@@ -1,0 +1,145 @@
+/* ====== BASE STYLES ====== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, sans-serif;
+  background: #f8f9ff;
+  color: #1a1a2e;
+  line-height: 1.6;
+}
+
+/* ====== HERO SECTION ====== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f0f4ff 0%, #f8f9ff 100%);
+}
+
+.container {
+  text-align: center;
+  width: 100%;
+  max-width: 420px;
+}
+
+/* ====== TYPOGRAPHY ====== */
+.main-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.1;
+}
+
+/* ====== ERROR MESSAGE ====== */
+.error-message {
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+/* ====== FORM STYLES ====== */
+.login-form {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #4a5568;
+  font-size: 0.9rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: inherit;
+  background: #f8fafc;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #6366f1;
+  background: white;
+}
+
+.form-group input::placeholder {
+  color: #a0aec0;
+}
+
+/* ====== BUTTONS ====== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 2.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 12px;
+  cursor: pointer;
+  border: none;
+  width: 100%;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: white;
+}
+
+.btn-secondary {
+  background: white;
+  color: #6366f1;
+  border: 2px solid #c7d2fe;
+  padding: 0.7rem 1.5rem;
+  width: auto;
+}
+
+/* ====== SIGNUP LINK ====== */
+.signup-link {
+  color: #718096;
+  font-size: 0.95rem;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 640px) {
+  .hero {
+    padding: 1.5rem;
+  }
+
+  .login-form {
+    padding: 1.8rem;
+  }
+
+  .main-title {
+    font-size: 2rem;
+  }
+}
