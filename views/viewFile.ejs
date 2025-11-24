@@ -10,14 +10,14 @@
     <div class="file-detail-container">
       <div class="file-preview">
         <% if (file.mimeType.startsWith('image/')) { %>
-        <img src="<%= signedUrl %>" alt="<%= file.storedName %>" />
+        <img src="<%= signedUrl %>" alt="<%= file.originalName %>" />
         <% } else { %>
         <div class="file-icon">📄</div>
         <% } %>
       </div>
 
       <div class="file-info">
-        <h2 class="file-name"><%= file.storedName %></h2>
+        <h2 class="file-name"><%= file.originalName %></h2>
         <p class="file-meta">
           <span class="file-size"><%= (file.size / 1024).toFixed(2) %> KB</span>
           •
