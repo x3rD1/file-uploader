@@ -80,7 +80,13 @@ exports.renameFolder = async (req, res) => {
 
 exports.deleteFolder = async (req, res) => {
   const folderId = parseInt(req.params.id, 10);
+  const folder = await prisma.folder.findUnique({ where: { id: folderId } });
   await prisma.folder.delete({ where: { id: folderId } });
+
+  const referer = req.headers.referer || "";
+  if (folder.parentId && referer.includes(`/folders/${folder.parentId}`)) {
+    return res.redirect(`/folders/${folder.parentId}`);
+  }
   res.redirect("/home");
 };
 

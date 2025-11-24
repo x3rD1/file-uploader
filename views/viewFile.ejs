@@ -35,6 +35,7 @@
             style="display: inline"
             onsubmit="return confirm('Delete this file?');"
           >
+            <input type="hidden" name="referer" value="<%= ref %>" />
             <button type="submit" class="btn delete">Delete</button>
           </form>
         </div>

@@ -6,12 +6,16 @@ exports.getFilePage = async (req, res) => {
   const fileId = parseInt(req.params.id, 10);
   const file = await prisma.file.findUnique({ where: { id: fileId } });
   if (!file) return res.status(404).send("File not found");
-  console.log(file);
+
   const { data, error } = await supabase.storage
     .from("Uploads")
     .createSignedUrl(file.storedName, 3600 * 24);
 
   if (error) return res.status(500).send("Failed to generate signed URL");
+
+  const referer = req.headers.referer || "";
+
+  res.locals.ref = referer;
   res.locals.file = file;
   res.locals.signedUrl = data.signedUrl;
   res.render("viewFile");
@@ -95,7 +99,12 @@ exports.deleteFile = async (req, res) => {
 
     await prisma.file.delete({ where: { id: fileId } });
 
-    res.redirect(`/folders/${file.folderId}`);
+    const referer = req.body.referer;
+    if (file.folderId && referer.includes(`/folders/${file.folderId}`)) {
+      return res.redirect(`/folders/${file.folderId}`);
+    }
+
+    res.redirect("/home");
   } catch (err) {
     console.error("Delete error:", err);
     console.log(filePath);
