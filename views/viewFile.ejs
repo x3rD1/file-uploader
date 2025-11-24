@@ -33,6 +33,7 @@
             action="/files/<%= file.id %>/delete"
             method="POST"
             style="display: inline"
+            onsubmit="return confirm('Delete this file?');"
           >
             <button type="submit" class="btn delete">Delete</button>
           </form>
