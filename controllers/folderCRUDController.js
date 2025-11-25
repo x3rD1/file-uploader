@@ -162,7 +162,6 @@ exports.viewSharedFolder = async (req, res) => {
       where: { folderId: share.folderId },
     });
 
-    // ⭐ Generate signed URLs for each file
     const filesWithSignedUrl = await Promise.all(
       files.map(async (file) => {
         const { data, error } = await supabase.storage
