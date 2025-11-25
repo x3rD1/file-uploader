@@ -17,6 +17,7 @@ exports.getFilePage = async (req, res) => {
 
   res.locals.ref = referer;
   res.locals.file = file;
+  res.locals.type = file.mimeType;
   res.locals.signedUrl = data.signedUrl;
   res.render("viewFile");
 };
