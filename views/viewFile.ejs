@@ -9,8 +9,23 @@
   <body>
     <div class="file-detail-container">
       <div class="file-preview">
-        <% if (file.mimeType.startsWith('image/')) { %>
+        <% if (type.startsWith('image/')) { %>
         <img src="<%= signedUrl %>" alt="<%= file.originalName %>" />
+
+        <% } else if (type.startsWith('video/')) { %>
+        <video src="<%= signedUrl %>" controls></video>
+
+        <% } else if (type.startsWith('audio/')) { %>
+        <audio src="<%= signedUrl %>" controls></audio>
+
+        <% } else if (type === 'application/pdf') { %>
+        <embed
+          src="<%= signedUrl %>"
+          type="application/pdf"
+          width="100%"
+          height="600px"
+        />
+
         <% } else { %>
         <div class="file-icon">📄</div>
         <% } %>

@@ -14,6 +14,13 @@
       <div class="file-card" data-file-id="<%= file.id %>">
         <% if (file.signedUrl && file.mimeType.startsWith('image/')) { %>
         <img src="<%= file.signedUrl %>" alt="<%= file.originalName %>" />
+
+        <% } else if (file.signedUrl && file.mimeType.startsWith('video/')) { %>
+        <video src="<%= file.signedUrl %>"></video>
+
+        <% } else if (file.signedUrl && file.mimeType.startsWith('audio/')) { %>
+        <div class="file-icon">🎵</div>
+
         <% } else { %>
         <div class="file-icon">📄</div>
         <% } %>
